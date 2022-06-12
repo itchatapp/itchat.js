@@ -1,5 +1,5 @@
 {
-    "name": "itchatapp-monorepo",
+    "name": "itchatjs-monorepo",
     "workspaces": [
         "modules/*"
     ],
