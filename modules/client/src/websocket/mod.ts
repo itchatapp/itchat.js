@@ -1,1 +1,1 @@
-export * from './WebSocket.ts'
+export * from './WebSocket.ts';

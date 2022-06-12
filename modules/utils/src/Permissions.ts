@@ -8,7 +8,6 @@ export type PermissionsResolvable =
   | PermissionString
   | PermissionsResolvable[];
 
-
 export declare interface Permissions {
   serialize(): Record<PermissionString, boolean>;
   any(bit: PermissionsResolvable): boolean;

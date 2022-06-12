@@ -1,3 +1,3 @@
-import { Channel } from './Channel.ts'
+import { Channel } from './Channel.ts';
 
 export class Category extends Channel {}

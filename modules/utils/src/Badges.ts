@@ -19,7 +19,6 @@ export declare interface Badges {
   equals(bit: BadgesResolvable): boolean;
 }
 
-
 export class Badges extends BitField {
   static FLAGS = {
     STAFF: 1n << 1n,
