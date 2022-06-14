@@ -1,5 +1,5 @@
 import { Base, Client } from './Base.ts';
-import { APIMember } from '../../deps.ts'
+import { APIMember } from '../deps.ts'
 import type { Server, User } from './mod.ts'
 
 export class Member extends Base {

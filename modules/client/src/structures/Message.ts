@@ -1,5 +1,5 @@
 import { Base, Client } from './Base.ts'
-import { APIMessage } from '../../deps.ts'
+import { APIMessage } from '../deps.ts'
 import type { Channel } from './mod.ts'
 
 export class Message extends Base {

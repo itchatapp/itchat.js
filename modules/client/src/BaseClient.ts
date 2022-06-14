@@ -1,5 +1,5 @@
-import { deepMerge, EventEmitter, REST, RESTOptions } from '../deps.ts';
-import { DEFAULT_CLIENT_OPTIONS } from './Constants.ts'
+import { deepMerge, EventEmitter, REST, RESTOptions } from './deps.ts';
+import { DEFAULT_CLIENT_OPTIONS, Events } from './Constants.ts'
 
 export interface ClientOptions {
   rest: RESTOptions;
@@ -19,10 +19,11 @@ export abstract class BaseClient extends EventEmitter {
     super();
     this.options = deepMerge(DEFAULT_CLIENT_OPTIONS, opts) as ClientOptions;
     this.api = new REST(this.options.rest);
+    this.api.debug = (msg) => this.emit(Events.DEBUG, `[REST]: ${msg}`)
   }
 
   debug(msg: unknown): void {
-    this.emit('debug', `[MAIN]: ${msg}`);
+    this.emit(Events.DEBUG, `[MAIN]: ${msg}`);
   }
 
   set token(token: string | null) {

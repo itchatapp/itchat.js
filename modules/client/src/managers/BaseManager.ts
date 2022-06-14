@@ -1,6 +1,6 @@
 import type { Client } from '../Client.ts';
 import type { Base } from '../structures/mod.ts';
-import { Collection } from '../../deps.ts';
+import { Collection } from '../deps.ts';
 
 export abstract class BaseManager<T extends Base, R extends { id: string | number }> {
   readonly cache = new Collection<string, T>();

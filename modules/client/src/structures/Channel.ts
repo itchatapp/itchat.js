@@ -1,5 +1,5 @@
 import { Base } from './Base.ts';
-import { APIChannelTypes } from '../../deps.ts'
+import { APIChannelTypes } from '../deps.ts'
 import type { TextChannel, GroupChannel, VoiceChannel, DMChannel, ServerChannel } from './mod.ts'
 
 export abstract class Channel extends Base {

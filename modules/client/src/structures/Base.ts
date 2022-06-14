@@ -1,5 +1,5 @@
 import { Client } from '../Client.ts'
-import { Snowflake } from '../../deps.ts'
+import { Snowflake } from '../deps.ts'
 
 export abstract class Base {
   id!: string;

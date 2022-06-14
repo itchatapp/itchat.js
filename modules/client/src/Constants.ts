@@ -3,6 +3,11 @@ import type { ClientOptions } from './BaseClient.ts'
 // TODO:
 // export enum WSEvents {}
 
+export enum Events {
+    DEBUG = 'debug',
+    ERROR = 'error'
+}
+
 export const DEFAULT_CLIENT_OPTIONS: ClientOptions = {
     ws: {},
     rest: {

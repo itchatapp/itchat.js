@@ -1,5 +1,5 @@
 import { Channel } from './Channel.ts'
-import { APIChannel } from '../../deps.ts'
+import { APIChannel } from '../deps.ts'
 import type { Server } from './mod.ts'
 
 export abstract class ServerChannel extends Channel {

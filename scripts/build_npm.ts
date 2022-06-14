@@ -1,30 +1,33 @@
-import { build, emptyDir } from 'https://deno.land/x/dnt@0.23.0/mod.ts';
+import { build, emptyDir, ShimOptions } from 'https://deno.land/x/dnt@0.23.0/mod.ts';
 
-const [name, version] = Deno.args;
+const [name, version] = Deno.args, shims: ShimOptions = {}, devDependencies: Record<string, string> = {}
 
 if (!name || !['rest', 'utils', 'client'].includes(name)) {
   console.log('Invalid module name');
-  Deno.exit();
+  Deno.exit(1);
 }
 
 if (!version) {
   console.log('Missing version');
-  Deno.exit();
+  Deno.exit(1);
 }
 
-await emptyDir('./npm');
+await emptyDir(`./modules/${name}/npm`);
+
+devDependencies['@types/node'] = '16.x'
 
 await build({
   packageManager: 'pnpm',
   scriptModule: false,
   test: false,
   entryPoints: [`./modules/${name}/mod.ts`],
-  outDir: './npm',
-  shims: {},
+  outDir: `./modules/${name}/npm`,
+  shims,
   package: {
     name: `@itchatapp/${name}`,
     version: Deno.args[0].replace(/[A-Z]+/gi, ''),
     description: `${name} module for itchat.js`,
+    devDependencies,
     license: 'MIT',
     repository: {
       type: 'git',
@@ -43,5 +46,5 @@ await build({
   },
 });
 
-Deno.copyFileSync('LICENSE', 'npm/LICENSE');
-Deno.copyFileSync('README.md', 'npm/README.md');
+Deno.copyFileSync('LICENSE', `modules/${name}/npm/LICENSE`);
+Deno.copyFileSync('README.md', `modules/${name}/npm/README.md`);

@@ -1,5 +1,5 @@
 import { Base, Client } from './Base.ts';
-import { APIServer, Permissions } from '../../deps.ts'
+import { APIServer, Permissions } from '../deps.ts'
 import { ServerMemberManager, ServerRoleManager, ServerChannelManager } from '../managers/mod.ts'
 
 export class Server extends Base {

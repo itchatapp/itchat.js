@@ -2,7 +2,7 @@ import { Client, User } from './mod.ts'
 import { Channel } from './Channel.ts';
 import { TextBasedChannel } from './interfaces/mod.ts'
 import { MessageManager } from '../managers/mod.ts'
-import { APIChannel } from '../../deps.ts'
+import { APIChannel } from '../deps.ts'
 
 type APIDMChannel = Pick<APIChannel, 'recipients'>
 

@@ -1,5 +1,5 @@
 import { Base, Client } from './Base.ts';
-import { APIRole, Permissions } from '../../deps.ts'
+import { APIRole, Permissions } from '../deps.ts'
 import { Server } from './mod.ts'
 
 export class Role extends Base {

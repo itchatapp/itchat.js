@@ -1,5 +1,5 @@
 import { Base, Client } from './Base.ts';
-import { APIUser, Badges } from '../../deps.ts'
+import { APIUser, Badges } from '../deps.ts'
 
 export class User extends Base {
   username!: string
