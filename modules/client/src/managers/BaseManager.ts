@@ -2,7 +2,7 @@ import type { Client } from '../Client.ts';
 import type { Base } from '../structures/mod.ts';
 import { Collection } from '../../deps.ts';
 
-export abstract class BaseManager<T extends Base, R extends { id: string }> {
+export abstract class BaseManager<T extends Base, R extends { id: string | number }> {
   readonly cache = new Collection<string, T>();
   // deno-lint-ignore no-explicit-any
   abstract readonly holds: (new (...args: any[]) => T) | null;
@@ -36,7 +36,7 @@ export abstract class BaseManager<T extends Base, R extends { id: string }> {
     if (resolvable == null) return null;
     if (typeof resolvable === 'string') return resolvable;
     if (typeof resolvable === 'object' && 'id' in resolvable) {
-      return resolvable.id;
+      return resolvable.id + '';
     }
     return null;
   }
