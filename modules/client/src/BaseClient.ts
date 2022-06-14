@@ -1,4 +1,5 @@
 import { deepMerge, EventEmitter, REST, RESTOptions } from '../deps.ts';
+import { DEFAULT_CLIENT_OPTIONS } from './Constants.ts'
 
 export interface ClientOptions {
   rest: RESTOptions;
@@ -16,7 +17,7 @@ export abstract class BaseClient extends EventEmitter {
 
   constructor(opts: DeepPartial<ClientOptions> = {}) {
     super();
-    this.options = deepMerge({}, opts) as ClientOptions;
+    this.options = deepMerge(DEFAULT_CLIENT_OPTIONS, opts) as ClientOptions;
     this.api = new REST(this.options.rest);
   }
 
