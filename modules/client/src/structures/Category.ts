@@ -1,3 +1,6 @@
-import { Channel } from './Channel.ts';
+import { ServerChannel } from './ServerChannel.ts';
 
-export class Category extends Channel {}
+
+export class Category extends ServerChannel {
+    readonly type = 'Category'
+}

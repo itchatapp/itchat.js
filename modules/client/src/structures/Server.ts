@@ -1,12 +1,30 @@
-import { Base } from './Base.ts';
+import { Base, Client } from './Base.ts';
+import { APIServer, Permissions } from '../../deps.ts'
+import { ServerMemberManager, ServerRoleManager, ServerChannelManager } from '../managers/mod.ts'
 
 export class Server extends Base {
-  constructor(data: unknown) {
-    super(data);
+  name!: string
+  ownerId!: string
+  description: string | null = null;
+  icon: string | null = null;
+  banner: string | null = null;
+  defaultPermissions = new Permissions()
+  readonly members = new ServerMemberManager(this)
+  readonly roles = new ServerRoleManager(this)
+  readonly channels = new ServerChannelManager(this)
+
+  constructor(client: Client, data: APIServer) {
+    super(client, data);
     this._patch(data);
   }
 
-  protected _patch(_data: unknown): this {
+  protected _patch(data: APIServer): this {
+    if (data.name) this.name = data.name
+    if ('description' in data) this.description = data.description ?? null
+    if (data.owner_id) this.ownerId = data.owner_id + ''
+    if ('banner' in data) this.banner = data.banner ?? null  
+    if ('icon' in data) this.icon = data.icon ?? null
+    if ('permissions' in data) this.defaultPermissions.set(BigInt(data.permissions))
     return this;
   }
 }
