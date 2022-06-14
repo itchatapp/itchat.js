@@ -2,13 +2,13 @@ import { CDN } from './CDN.ts';
 import { DEFAULT_REST_OPTIONS, Queue, stringifyQuery } from './util/mod.ts';
 import { HTTPError } from './errors/mod.ts';
 import { deepmerge as merge } from 'https://deno.land/x/deepmergets@v4.0.3/dist/deno/index.ts';
-import {
+import type {
   DeleteRoutes,
   GetRoutes,
   PatchRoutes,
   PostRoutes,
   PutRoutes,
-} from './types/routes.ts';
+} from 'https://deno.land/x/itchatjs_types@v1.0.0/mod.ts';
 
 export interface RESTOptions {
   app: string;
