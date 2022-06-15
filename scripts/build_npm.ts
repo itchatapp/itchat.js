@@ -1,6 +1,12 @@
-import { build, emptyDir, ShimOptions } from 'https://deno.land/x/dnt@0.23.0/mod.ts';
+import {
+  build,
+  emptyDir,
+  ShimOptions,
+} from 'https://deno.land/x/dnt@0.23.0/mod.ts';
 
-const [name, version] = Deno.args, shims: ShimOptions = {}, devDependencies: Record<string, string> = {}
+const [name, version] = Deno.args,
+  shims: ShimOptions = {},
+  devDependencies: Record<string, string> = {};
 
 if (!name || !['rest', 'utils', 'client'].includes(name)) {
   console.log('Invalid module name');
@@ -14,7 +20,7 @@ if (!version) {
 
 await emptyDir(`./modules/${name}/npm`);
 
-devDependencies['@types/node'] = '16.x'
+devDependencies['@types/node'] = '16.x';
 
 await build({
   packageManager: 'pnpm',

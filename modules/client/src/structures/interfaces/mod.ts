@@ -1,1 +1,1 @@
-export * from './TextBasedChannel.ts'
+export * from './TextBasedChannel.ts';

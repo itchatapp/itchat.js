@@ -1,5 +1,5 @@
-import { Client } from '../Client.ts'
-import { Snowflake } from '../deps.ts'
+import { Client } from '../Client.ts';
+import { Snowflake } from '../deps.ts';
 
 export abstract class Base {
   id!: string;
@@ -19,12 +19,12 @@ export abstract class Base {
   }
 
   get createdTimestamp(): number {
-    return Snowflake.timestampOf(this.id)
+    return Snowflake.timestampOf(this.id);
   }
 
   get createdAt(): Date {
-    return new Date(this.createdTimestamp)
+    return new Date(this.createdTimestamp);
   }
 }
 
-export { Client }
+export { Client };
