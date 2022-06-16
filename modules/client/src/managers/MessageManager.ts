@@ -16,8 +16,8 @@ export class MessageManager extends BaseManager<Message, APIMessage> {
     super(channel.client);
   }
 
-  async fetch(message?: MessageResolvable): Promise<Message> {
-    const id = this.resolveId(message!);
+  async fetch(message: MessageResolvable): Promise<Message> {
+    const id = this.resolveId(message);
 
     if (!id) {
       throw new TypeError('INVALID_TYPE', 'message', 'MessageResolvable');
@@ -29,7 +29,7 @@ export class MessageManager extends BaseManager<Message, APIMessage> {
   }
 
   async delete(message: MessageResolvable): Promise<void> {
-    const id = this.resolveId(message!);
+    const id = this.resolveId(message);
 
     if (!id) {
       throw new TypeError('INVALID_TYPE', 'message', 'MessageResolvable');

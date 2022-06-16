@@ -1,13 +1,13 @@
 import { Messages } from './Messages.ts';
 
 const createCustomError = (Base: ErrorConstructor) => {
-  return class RevoltError<
+  return class ItChatError<
     K extends keyof typeof Messages = keyof typeof Messages,
   > extends Base {
     constructor(key: K, ...args: Parameters<typeof Messages[K]>) {
       const msg = Messages[key] as (...args: unknown[]) => string;
       super(msg(...args));
-      Base.captureStackTrace(this, RevoltError);
+      Base.captureStackTrace(this, ItChatError);
     }
   };
 };

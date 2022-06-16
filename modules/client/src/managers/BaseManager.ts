@@ -2,6 +2,8 @@ import type { Client } from '../Client.ts';
 import type { Base } from '../structures/mod.ts';
 import { Collection } from '../deps.ts';
 
+type Resolvable = '';
+
 export abstract class BaseManager<
   T extends Base,
   R extends { id: string | number },
@@ -25,8 +27,8 @@ export abstract class BaseManager<
 
   resolve(resolvable: T): T;
   resolve(resolvable: string | R): T | null;
-  resolve(resolvable: string | R | T): T | null;
-  resolve(resolvable: string | R | T): T | null {
+  resolve(resolvable: string | R | T | null | void): T | null;
+  resolve(resolvable: string | R | T | null | void): T | null {
     const id = this.resolveId(resolvable);
     if (id) return this.cache.get(id) ?? null;
     return null;
@@ -34,8 +36,8 @@ export abstract class BaseManager<
 
   resolveId(resolvable: T): string;
   resolveId(resolvable: string | R): string | null;
-  resolveId(resolvable: string | T | R): string | null;
-  resolveId(resolvable: string | T | R): string | null {
+  resolveId(resolvable: string | T | R | null | void): string | null;
+  resolveId(resolvable: string | T | R | null | void): string | null {
     if (resolvable == null) return null;
     if (typeof resolvable === 'string') return resolvable;
     if (typeof resolvable === 'object' && 'id' in resolvable) {
