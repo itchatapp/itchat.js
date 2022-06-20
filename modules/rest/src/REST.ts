@@ -8,7 +8,7 @@ import type {
   PatchRoutes,
   PostRoutes,
   PutRoutes,
-} from 'https://deno.land/x/itchatjs_types@v1.2.1/mod.ts';
+} from 'https://deno.land/x/itchatjs_types@v1.2.3/mod.ts';
 
 export interface RESTOptions {
   app: string;

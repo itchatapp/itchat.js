@@ -1,6 +1,6 @@
 import { Channel } from './Channel.ts';
 import { APIChannel } from '../deps.ts';
-import type { Invite, Server } from './mod.ts';
+import type { Server } from './mod.ts';
 
 export abstract class ServerChannel extends Channel {
   name!: string;
@@ -14,9 +14,5 @@ export abstract class ServerChannel extends Channel {
 
   get server(): Server {
     return this.client.servers.cache.get(this.serverId)!;
-  }
-
-  createInvite(): Promise<Invite> {
-    return this.server.invites.create({ channelId: this.id });
   }
 }

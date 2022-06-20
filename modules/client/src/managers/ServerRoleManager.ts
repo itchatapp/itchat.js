@@ -23,12 +23,15 @@ export class ServerRoleManager extends BaseManager<Role, APIRole> {
   fetch(): Promise<Collection<string, Role>>;
   fetch(role: RoleResolvable): Promise<Role>;
   async fetch(role?: RoleResolvable): Promise<Role | Collection<string, Role>> {
-    const id = this.resolveId(role!);
+    if (typeof role !== 'undefined') {
+      const id = this.resolveId(role);
 
-    if (id) {
+      if (!id) throw new TypeError('INVALID_TYPE', 'role', 'RoleResolvable');
+
       const data = await this.client.api.get(
         `/servers/${this.server.id}/roles/${id}`,
       );
+      
       return this.add(data);
     }
 
@@ -52,7 +55,7 @@ export class ServerRoleManager extends BaseManager<Role, APIRole> {
       `/servers/${this.server.id}/roles`,
       { body: options },
     );
-    return this.add(data as unknown as APIRole);
+    return this.add(data);
   }
 
   async edit(
@@ -65,6 +68,6 @@ export class ServerRoleManager extends BaseManager<Role, APIRole> {
       `/servers/${this.server.id}/roles/${id}`,
       { body: options },
     );
-    return this.add(data as unknown as APIRole);
+    return this.add(data);
   }
 }
