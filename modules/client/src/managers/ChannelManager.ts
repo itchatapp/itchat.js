@@ -12,10 +12,10 @@ export class ChannelManager extends BaseManager<Channel, APIChannel> {
     let channel: Channel;
 
     switch (data.type) {
-      case 'Direct':
+      case 1:
         channel = new DMChannel(this.client, data);
         break;
-      case 'Group':
+      case 2:
         channel = new GroupChannel(this.client, data);
         break;
       default:
@@ -50,5 +50,14 @@ export class ChannelManager extends BaseManager<Channel, APIChannel> {
       cur.set(channel.id, channel);
       return cur;
     }, new Collection<string, Channel>());
+  }
+
+  async create(name: string) {
+    const data = await this.client.api.post('/channels', {
+      body: {
+        name,
+      },
+    });
+    return this.add(data);
   }
 }

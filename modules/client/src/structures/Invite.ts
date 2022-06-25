@@ -10,11 +10,12 @@ export class Invite extends Base {
   uses = 0;
 
   constructor(client: Client, data: APIInvite) {
-    super(client, data);
+    super(client);
     this._patch(data);
   }
 
   protected _patch(data: APIInvite): this {
+    super._patch(data);
     if (data.channel_id) this.channelId = data.channel_id + '';
     if (data.code) this.code = data.code;
     if (data.inviter_id) this.inviterId = data.inviter_id + '';

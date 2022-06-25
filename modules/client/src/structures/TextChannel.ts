@@ -1,9 +1,9 @@
-import { ServerChannel } from './ServerChannel.ts';
+import { ChannelType, ServerChannel } from './ServerChannel.ts';
 import { TextBasedChannel } from './interfaces/mod.ts';
 import { CreateMessageOptions, MessageManager } from '../managers/mod.ts';
 
 export class TextChannel extends ServerChannel implements TextBasedChannel {
-  readonly type = 'Text';
+  readonly type = ChannelType.Text;
   readonly messages: MessageManager = new MessageManager(this);
 
   send(options: CreateMessageOptions) {

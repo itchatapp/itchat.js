@@ -5,4 +5,4 @@ export { Collection } from 'https://esm.sh/@discordjs/collection@0.6.0';
 export * from '../../utils/mod.ts';
 // https://deno.land/x/itchatjs_rest/mod.ts
 export * from '../../rest/mod.ts';
-export * from 'https://deno.land/x/itchatjs_types@v1.2.3/mod.ts';
+export * from 'https://deno.land/x/itchatjs_types@v1.2.4/mod.ts';

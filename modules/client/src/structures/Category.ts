@@ -1,5 +1,5 @@
-import { ServerChannel } from './ServerChannel.ts';
+import { ChannelType, ServerChannel } from './ServerChannel.ts';
 
 export class Category extends ServerChannel {
-  readonly type = 'Category';
+  readonly type = ChannelType.Category;
 }

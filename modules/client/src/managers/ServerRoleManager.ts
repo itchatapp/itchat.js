@@ -31,7 +31,7 @@ export class ServerRoleManager extends BaseManager<Role, APIRole> {
       const data = await this.client.api.get(
         `/servers/${this.server.id}/roles/${id}`,
       );
-      
+
       return this.add(data);
     }
 

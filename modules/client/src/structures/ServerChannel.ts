@@ -16,3 +16,5 @@ export abstract class ServerChannel extends Channel {
     return this.client.servers.cache.get(this.serverId)!;
   }
 }
+
+export { ChannelType } from './Channel.ts';

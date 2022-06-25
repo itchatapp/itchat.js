@@ -20,11 +20,12 @@ export class Server extends Base {
   readonly invites = new ServerInviteManager(this);
 
   constructor(client: Client, data: APIServer) {
-    super(client, data);
+    super(client);
     this._patch(data);
   }
 
   protected _patch(data: APIServer): this {
+    super._patch(data);
     if (data.name) this.name = data.name;
     if ('description' in data) this.description = data.description ?? null;
     if (data.owner_id) this.ownerId = data.owner_id + '';

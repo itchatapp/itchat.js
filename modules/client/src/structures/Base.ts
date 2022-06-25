@@ -4,9 +4,7 @@ import { Snowflake } from '../deps.ts';
 export abstract class Base {
   id!: string;
 
-  constructor(public readonly client: Client, data: unknown) {
-    this._patch(data);
-  }
+  constructor(public readonly client: Client) {}
 
   protected _patch(data: unknown): this {
     this.id = (data as { id: string }).id;

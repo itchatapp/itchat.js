@@ -10,11 +10,12 @@ export class Message extends Base {
   editedTimestamp: number | null = null;
 
   constructor(client: Client, data: APIMessage) {
-    super(client, data);
+    super(client);
     this._patch(data);
   }
 
   protected _patch(data: APIMessage): this {
+    super._patch(data);
     if (data.content) this.content = data.content;
     if (data.author_id) this.authorId = data.author_id + '';
     if (data.channel_id) this.channelId = data.channel_id + '';

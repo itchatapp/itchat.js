@@ -8,11 +8,12 @@ export class Member extends Base {
   joinedTimestamp!: number;
 
   constructor(client: Client, data: APIMember) {
-    super(client, data);
+    super(client);
     this._patch(data);
   }
 
   protected _patch(data: APIMember): this {
+    super._patch(data);
     if ('nickname' in data) this.nickname = data.nickname ?? null;
     if (data.server_id) this.serverId = data.server_id + '';
     if (data.joined_at) this.joinedTimestamp = data.joined_at;

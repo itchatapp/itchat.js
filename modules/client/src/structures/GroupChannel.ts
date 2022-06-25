@@ -1,4 +1,4 @@
-import { Channel } from './Channel.ts';
+import { Channel, ChannelType } from './Channel.ts';
 import { Client, User } from './mod.ts';
 import { TextBasedChannel } from './interfaces/mod.ts';
 import { CreateMessageOptions, MessageManager } from '../managers/mod.ts';
@@ -10,7 +10,7 @@ type APIGroupChannel = Pick<
 >;
 
 export class GroupChannel extends Channel implements TextBasedChannel {
-  readonly type = 'Group';
+  readonly type = ChannelType.Group;
   readonly messages: MessageManager = new MessageManager(this);
   name!: string;
   topic: string | null = null;
@@ -19,10 +19,12 @@ export class GroupChannel extends Channel implements TextBasedChannel {
   // recipients: string[]
 
   constructor(client: Client, data: APIGroupChannel) {
-    super(client, data);
+    super(client);
+    this._patch(data);
   }
 
   protected _patch(data: APIGroupChannel): this {
+    super._patch(data);
     if (data.name) this.name = data.name;
     if (data.owner_id) this.ownerId = data.owner_id + '';
     if ('topic' in data) this.topic = data.topic ?? null;

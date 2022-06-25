@@ -10,11 +10,12 @@ export class Role extends Base {
   permissions = new Permissions();
 
   constructor(client: Client, data: APIRole) {
-    super(client, data);
+    super(client);
     this._patch(data);
   }
 
   protected _patch(data: APIRole): this {
+    super._patch(data);
     if (data.name) this.name = data.name;
     if ('hoist' in data) this.hoist = data.hoist;
     if (data.server_id) this.serverId = data.server_id + '';
