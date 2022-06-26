@@ -36,8 +36,8 @@ type Count<
 
 // deno-lint-ignore ban-types
 type DeepPartial<T> = T extends object ? {
-  [P in keyof T]?: DeepPartial<T[P]>;
-}
+    [P in keyof T]?: DeepPartial<T[P]>;
+  }
   : T;
 
 export class REST {
