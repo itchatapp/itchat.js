@@ -1,5 +1,13 @@
 import { BaseManager } from './BaseManager.ts';
-import { Channel, DMChannel, GroupChannel } from '../structures/mod.ts';
+import {
+  Category,
+  Channel,
+  ChannelType,
+  DMChannel,
+  GroupChannel,
+  TextChannel,
+  VoiceChannel,
+} from '../structures/mod.ts';
 import { APIChannel, Collection } from '../deps.ts';
 import { TypeError } from '../errors/mod.ts';
 
@@ -12,18 +20,42 @@ export class ChannelManager extends BaseManager<Channel, APIChannel> {
     let channel: Channel;
 
     switch (data.type) {
-      case 1:
+      case ChannelType.Direct:
         channel = new DMChannel(this.client, data);
         break;
-      case 2:
+      case ChannelType.Group:
         channel = new GroupChannel(this.client, data);
+        break;
+      case ChannelType.Text:
+        channel = new TextChannel(this.client, data);
+        break;
+      case ChannelType.Voice:
+        channel = new VoiceChannel(this.client, data);
+        break;
+      case ChannelType.Category:
+        channel = new Category(this.client, data);
         break;
       default:
         throw new Error(`Unknown chanel type: ${data.type}`);
     }
 
+    if (channel.inServer()) {
+      channel.server.channels.cache.set(channel.id, channel);
+    }
+
     this.cache.set(channel.id, channel);
+
     return channel;
+  }
+
+  remove(id: string): void {
+    const channel = this.cache.get(id);
+
+    if (channel?.inServer()) {
+      channel.server.channels.remove(id);
+    }
+
+    super.remove(id);
   }
 
   fetch(): Promise<Collection<string, Channel>>;

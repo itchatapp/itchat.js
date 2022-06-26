@@ -5,7 +5,7 @@ export class ChannelDeleteAction extends Action {
     const channel = this.client.channels.cache.get(data.id);
 
     if (channel) {
-      this.client.channels.cache.delete(data.id);
+      this.client.channels.remove(data.id);
       this.client.emit(Events.CHANNEL_DELETE, channel);
     }
   }

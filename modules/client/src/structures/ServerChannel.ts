@@ -7,6 +7,7 @@ export abstract class ServerChannel extends Channel {
   serverId!: string;
 
   protected _patch(data: APIChannel): this {
+    super._patch(data);
     if (data.name) this.name = data.name;
     if (data.server_id) this.serverId = data.server_id + '';
     return this;

@@ -153,12 +153,12 @@ export class WebSocketShard {
         break;
       }
       default: {
-        const action = this.client.actions.get(packet.type);
+        const action = this.client.actions.get(packet.event);
 
         if (action) {
           await action.handle(packet);
         } else {
-          this.debug(`Received unknown packet "${packet.type}"`);
+          this.debug(`Received unknown packet "${packet.event}"`);
         }
 
         break;
