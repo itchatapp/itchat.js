@@ -13,6 +13,10 @@ import { TypeError } from '../errors/mod.ts';
 
 export type ChannelResolvable = Channel | APIChannel | string;
 
+export interface CreateGroupOptions {
+  name: string;
+}
+
 export class ChannelManager extends BaseManager<Channel, APIChannel> {
   holds = null;
 
@@ -36,7 +40,7 @@ export class ChannelManager extends BaseManager<Channel, APIChannel> {
         channel = new Category(this.client, data);
         break;
       default:
-        throw new Error(`Unknown chanel type: ${data.type}`);
+        throw new Error(`Unknown channel type: ${data.type}`);
     }
 
     if (channel.inServer()) {
@@ -52,7 +56,7 @@ export class ChannelManager extends BaseManager<Channel, APIChannel> {
     const channel = this.cache.get(id);
 
     if (channel?.inServer()) {
-      channel.server.channels.remove(id);
+      channel.server?.channels.remove(id);
     }
 
     super.remove(id);
@@ -94,12 +98,8 @@ export class ChannelManager extends BaseManager<Channel, APIChannel> {
     await this.client.api.delete(`/channels/${id}`);
   }
 
-  async create(name: string) {
-    const data = await this.client.api.post('/channels', {
-      body: {
-        name,
-      },
-    });
-    return this.add(data);
+  async create(options: CreateGroupOptions): Promise<GroupChannel> {
+    const data = await this.client.api.post('/channels', { body: options });
+    return this.add(data) as GroupChannel;
   }
 }

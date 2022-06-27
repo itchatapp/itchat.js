@@ -6,8 +6,7 @@ export class ServerMemberJoinAction extends Action {
     const server = this.client.servers.cache.get(data.server_id);
 
     if (server) {
-      const member = server.members.add(data);
-      this.client.emit(Events.SERVER_MEMBER_JOIN, member);
+      this.client.emit(Events.SERVER_MEMBER_JOIN, server.members.add(data));
     }
   }
 }

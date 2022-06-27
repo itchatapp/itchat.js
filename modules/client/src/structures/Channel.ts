@@ -1,6 +1,7 @@
 import { Base } from './Base.ts';
 import type { GroupChannel, ServerChannel, VoiceChannel } from './mod.ts';
 import type { TextBasedChannel } from './interfaces/TextBasedChannel.ts';
+import { Permissions } from '../deps.ts';
 
 export enum ChannelType {
   Unknown = 0,
@@ -9,6 +10,18 @@ export enum ChannelType {
   Category = 3,
   Text = 4,
   Voice = 5,
+}
+
+export enum OverwriteType {
+  Member = 0,
+  Role = 1,
+}
+
+export interface Overwrite {
+  id: string;
+  type: OverwriteType;
+  allow: Permissions;
+  deny: Permissions;
 }
 
 export abstract class Channel extends Base {

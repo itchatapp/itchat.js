@@ -6,8 +6,8 @@ export abstract class Base {
 
   constructor(public readonly client: Client) {}
 
-  protected _patch(data: unknown): this {
-    this.id = (data as { id: string }).id;
+  protected _patch(data: { id: string }): this {
+    this.id = data.id;
     return this;
   }
 
@@ -32,7 +32,7 @@ export abstract class Base {
     return true;
   }
 
-  _update(data: unknown): this {
+  _update(data: { id: string }): this {
     const clone = this._clone();
     this._patch(data);
     return clone;

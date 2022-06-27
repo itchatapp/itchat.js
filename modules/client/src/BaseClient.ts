@@ -17,7 +17,7 @@ export interface ClientEvents {
   channelDelete: [Channel];
   debug: [string];
   error: [unknown];
-  message: [Message];
+  messageCreate: [Message];
   messageDelete: [Message];
   messageUpdate: [Message, Message];
   raw: [unknown];

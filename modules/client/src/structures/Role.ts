@@ -1,6 +1,6 @@
 import { Base, Client } from './Base.ts';
 import { APIRole, Permissions } from '../deps.ts';
-import { Server } from './mod.ts';
+import type { Server } from './mod.ts';
 import type { EditServerRoleOptions } from '../managers/ServerRoleManager.ts';
 
 export class Role extends Base {

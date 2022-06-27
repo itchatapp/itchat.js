@@ -9,6 +9,8 @@ export type CreateMessageOptions = string | {
   content: string;
 };
 
+export type EditMessageOptions = CreateMessageOptions;
+
 export class MessageManager extends BaseManager<Message, APIMessage> {
   holds = Message;
 
@@ -45,12 +47,32 @@ export class MessageManager extends BaseManager<Message, APIMessage> {
       `/channels/${this.channel.id}/messages`,
       {
         body: {
-          author_id: this.client.user!.id,
-          channel_id: this.channel.id,
           content: typeof options === 'object' ? options.content : options,
         },
       },
     );
+    return this.add(data);
+  }
+
+  async edit(
+    message: MessageResolvable,
+    options: EditMessageOptions,
+  ): Promise<Message> {
+    const id = this.resolveId(message);
+
+    if (!id) {
+      throw new TypeError('INVALID_TYPE', 'message', 'MessageResolvable');
+    }
+
+    const data = await this.client.api.patch(
+      `/channels/${this.channel.id}/messages/${id}`,
+      {
+        body: {
+          content: typeof options === 'object' ? options.content : options,
+        },
+      },
+    );
+
     return this.add(data);
   }
 }

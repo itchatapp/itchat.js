@@ -1,7 +1,8 @@
 import { Base, Client } from './Base.ts';
 import type { APIMessage } from '../deps.ts';
-import type { Channel } from './mod.ts';
+import type { Channel, User } from './mod.ts';
 import type { TextBasedChannel } from './interfaces/mod.ts';
+import type { EditMessageOptions } from '../managers/MessageManager.ts';
 
 export class Message extends Base {
   content = '';
@@ -27,10 +28,18 @@ export class Message extends Base {
     return this.editedTimestamp ? new Date(this.editedTimestamp) : null;
   }
 
+  get author(): User {
+    return this.client.users.cache.get(this.authorId)!;
+  }
+
   get channel(): Channel & TextBasedChannel {
     return this.client.channels.cache.get(this.channelId)! as
       & Channel
       & TextBasedChannel;
+  }
+
+  edit(options: EditMessageOptions): Promise<Message> {
+    return this.channel.messages.edit(this, options);
   }
 
   delete(): Promise<void> {

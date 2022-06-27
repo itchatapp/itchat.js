@@ -1,14 +1,14 @@
 import { CDN } from './CDN.ts';
 import { DEFAULT_REST_OPTIONS, Queue, stringifyQuery } from './util/mod.ts';
 import { HTTPError } from './errors/mod.ts';
-import { deepmerge as merge } from 'https://deno.land/x/deepmergets@v4.0.3/dist/deno/index.ts';
-import type {
+import {
   DeleteRoutes,
   GetRoutes,
+  merge,
   PatchRoutes,
   PostRoutes,
   PutRoutes,
-} from 'https://deno.land/x/itchatjs_types@v1.2.5/mod.ts';
+} from './deps.ts';
 
 export interface RESTOptions {
   app: string;
@@ -45,7 +45,6 @@ export class REST {
   protected readonly options: RESTOptions;
   #token: string | null = null;
   #queue = new Queue();
-
   debug(_msg: string) {}
 
   constructor(options: DeepPartial<RESTOptions> = {}) {

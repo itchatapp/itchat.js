@@ -1,5 +1,6 @@
 import { Base, Client } from './Base.ts';
-import { APIServer, Permissions } from '../deps.ts';
+import { Role } from './Role.ts';
+import { APIServer } from '../deps.ts';
 import {
   ServerChannelManager,
   ServerInviteManager,
@@ -13,7 +14,6 @@ export class Server extends Base {
   description: string | null = null;
   icon: string | null = null;
   banner: string | null = null;
-  defaultPermissions = new Permissions();
   readonly members = new ServerMemberManager(this);
   readonly roles = new ServerRoleManager(this);
   readonly channels = new ServerChannelManager(this);
@@ -32,7 +32,17 @@ export class Server extends Base {
     if ('banner' in data) this.banner = data.banner ?? null;
     if ('icon' in data) this.icon = data.icon ?? null;
     if ('permissions' in data) {
-      this.defaultPermissions.set(BigInt(data.permissions));
+      this.roles.cache.set(
+        this.id,
+        new Role(this.client, {
+          id: this.id,
+          server_id: this.id,
+          hoist: false,
+          color: 0,
+          name: 'everyone',
+          permissions: data.permissions,
+        }),
+      );
     }
     return this;
   }

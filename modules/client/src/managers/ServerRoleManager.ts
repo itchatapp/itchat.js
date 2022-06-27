@@ -20,6 +20,10 @@ export class ServerRoleManager extends BaseManager<Role, APIRole> {
     super(server.client);
   }
 
+  get everyone(): Role {
+    return this.cache.get(this.server.id)!;
+  }
+
   fetch(): Promise<Collection<string, Role>>;
   fetch(role: RoleResolvable): Promise<Role>;
   async fetch(role?: RoleResolvable): Promise<Role | Collection<string, Role>> {

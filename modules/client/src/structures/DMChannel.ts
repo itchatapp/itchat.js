@@ -4,7 +4,7 @@ import { TextBasedChannel } from './interfaces/mod.ts';
 import { CreateMessageOptions, MessageManager } from '../managers/mod.ts';
 import { APIChannel } from '../deps.ts';
 
-type APIDMChannel = Pick<APIChannel, 'recipients'>;
+type APIDMChannel = Pick<APIChannel, 'id' | 'recipients'>;
 
 export class DMChannel extends Channel implements TextBasedChannel {
   readonly type = ChannelType.Direct;
