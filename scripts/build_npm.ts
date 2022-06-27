@@ -35,14 +35,14 @@ if (name === 'client') {
     version: '^4.0.7',
   };
 
-  mappings['https://deno.land/x/itchatjs_rest@1.0.2/mod.ts'] = {
+  mappings['https://deno.land/x/itchatjs_rest@1.0.3/mod.ts'] = {
     name: '@itchatapp/rest',
-    version: '^1.0.2',
+    version: '^1.0.3',
   };
 
-  mappings['https://deno.land/x/itchatjs_utils@1.0.2/mod.ts'] = {
+  mappings['https://deno.land/x/itchatjs_utils@1.0.3/mod.ts'] = {
     name: '@itchatapp/utils',
-    version: '^1.0.2',
+    version: '^1.0.3',
   };
 
   devDependencies['@types/ws'] = '^8.5.3';
