@@ -44,7 +44,7 @@ export class WebSocketShard {
   }
 
   private onOpen(): void {
-    console.log('Socket opened');
+    this.debug('Socket opened');
     if (!this.client.token) throw new Error('INVALID_TOKEN');
     this.send({
       event: WSEvents.AUTHENTICATE,
@@ -90,7 +90,6 @@ export class WebSocketShard {
   }
 
   private onMessage({ data }: { data: unknown }): void {
-    console.log(data);
     let packet: unknown;
 
     try {
