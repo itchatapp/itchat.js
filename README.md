@@ -1,6 +1,6 @@
-# ItChat.js (WIP)
+# ItChat.js
 
-### Installation (Nodejs only)
+### Installation (NodeJS only)
 ```
 $ npm i @itchatapp/client
 ```
@@ -13,7 +13,7 @@ import { Client } from '@itchatapp/client'
 
 const client = new Client()
 
-client.on('message', (msg) => {
+client.on('messageCreate', (msg) => {
     if (msg.content === '!ping') {
         msg.reply('Pong!')
     }
