@@ -1,7 +1,7 @@
 import { Action, Events } from './Action.ts';
 import type { APIMessage } from '../deps.ts';
 
-export class MessageAction extends Action {
+export class MessageCreateAction extends Action {
   handle(data: APIMessage) {
     const channel = this.client.channels.cache.get(data.channel_id);
 
