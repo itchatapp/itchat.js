@@ -35,14 +35,14 @@ if (name === 'client') {
     version: '^4.0.7',
   };
 
-  mappings['https://deno.land/x/itchatjs_rest@1.0.0/mod.ts'] = {
+  mappings['https://deno.land/x/itchatjs_rest@1.0.2/mod.ts'] = {
     name: '@itchatapp/rest',
-    version: '^1.0.0',
+    version: '^1.0.2',
   };
 
-  mappings['https://deno.land/x/itchatjs_utils@1.0.0/mod.ts'] = {
+  mappings['https://deno.land/x/itchatjs_utils@1.0.2/mod.ts'] = {
     name: '@itchatapp/utils',
-    version: '^1.0.0',
+    version: '^1.0.2',
   };
 
   devDependencies['@types/ws'] = '^8.5.3';
@@ -58,6 +58,12 @@ if (name === 'client') {
         exportName: 'default',
       },
     ],
+  }, {
+    package: {
+      name: 'ws',
+      version: '^8.8.0'
+    },
+    globalNames: []
   }];
 }
 
