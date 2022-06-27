@@ -75,6 +75,7 @@ if (name === 'rest') {
       typeOnly: true,
     }, {
       name: 'Response',
+      typeOnly: true,
     }],
   }];
 }

@@ -111,13 +111,9 @@ export class REST {
         return this.request(request);
       }
 
-      throw res;
+      throw new HTTPError(res, request);
     } catch (err) {
-      console.error(err);
       if (request.retries === this.options.retries) {
-        if (err instanceof Response) {
-          throw new HTTPError(err, request);
-        }
         throw err;
       }
 
