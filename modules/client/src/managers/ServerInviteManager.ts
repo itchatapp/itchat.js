@@ -12,22 +12,28 @@ export class ServerInviteManager extends BaseManager<Invite, APIInvite> {
     super(server.client);
   }
 
-
-  fetch(): Promise<Collection<string, Invite>>
-  fetch(invite: InviteResolvable): Promise<Invite>
-  async fetch(invite?: InviteResolvable): Promise<Invite | Collection<string, Invite>> {
+  fetch(): Promise<Collection<string, Invite>>;
+  fetch(invite: InviteResolvable): Promise<Invite>;
+  async fetch(
+    invite?: InviteResolvable,
+  ): Promise<Invite | Collection<string, Invite>> {
     if (typeof invite !== 'undefined') {
-      const id = this.resolveId(invite)
+      const id = this.resolveId(invite);
 
-      if (!id) throw new TypeError('INVALID_TYPE', 'invite', 'InviteResolvable');
+      if (!id) {
+        throw new TypeError('INVALID_TYPE', 'invite', 'InviteResolvable');
+      }
 
-      const data = await this.client.api.get(`/servers/${this.server.id}/invites/${id}`)
+      const data = await this.client.api.get(
+        `/servers/${this.server.id}/invites/${id}`,
+      );
 
-      return this.add(data)
+      return this.add(data);
     }
 
-    const data = await this.client.api.get(`/servers/${this.server.id}/invites`)
-
+    const data = await this.client.api.get(
+      `/servers/${this.server.id}/invites`,
+    );
 
     return data.reduce((cur, prev) => {
       const invite = this.add(prev);

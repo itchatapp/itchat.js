@@ -1,22 +1,28 @@
 import { Client, User } from './mod.ts';
-import { Channel } from './Channel.ts';
+import { Channel, ChannelType } from './Channel.ts';
 import { TextBasedChannel } from './interfaces/mod.ts';
 import { CreateMessageOptions, MessageManager } from '../managers/mod.ts';
 import { APIChannel } from '../deps.ts';
 
-type APIDMChannel = Pick<APIChannel, 'recipients'>;
+type APIDMChannel = Pick<APIChannel, 'id' | 'recipients'>;
 
 export class DMChannel extends Channel implements TextBasedChannel {
-  readonly type = 'Direct';
+  readonly type = ChannelType.Direct;
   readonly messages: MessageManager = new MessageManager(this);
   recipientId!: string;
 
   constructor(client: Client, data: APIDMChannel) {
-    super(client, data);
+    super(client);
+    this._patch(data);
   }
 
   protected _patch(data: APIDMChannel): this {
-    if (data.recipients?.length) this.recipientId = data.recipients[0] + '';
+    super._patch(data);
+    if (data.recipients?.length) {
+      this.recipientId = data.recipients.find((id) =>
+        id !== this.client.user!.id
+      )!;
+    }
     return this;
   }
 

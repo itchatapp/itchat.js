@@ -7,14 +7,17 @@ export class User extends Base {
   badges = new Badges();
 
   constructor(client: Client, data: APIUser) {
-    super(client, data);
+    super(client);
     this._patch(data);
   }
 
   protected _patch(data: APIUser): this {
+    super._patch(data);
+
     if (data.username) this.username = data.username;
     if ('avatar' in data) this.avatar = data.avatar ?? null;
     if ('badges' in data) this.badges.set(BigInt(data.badges));
+
     return this;
   }
 }

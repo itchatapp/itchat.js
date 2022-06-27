@@ -54,13 +54,23 @@ export class ServerMemberManager extends BaseManager<Member, APIMember> {
     await this.client.api.delete(`/servers/${this.server.id}/members/${id}`);
   }
 
-  async edit(member: ServerMemberResolvable, options: EditServerMemberOptions) {
+  async edit(
+    member: ServerMemberResolvable,
+    options: EditServerMemberOptions,
+  ): Promise<Member> {
     const id = this.resolveId(member);
+
     if (!id) {
       throw new TypeError('INVALID_TYPE', 'member', 'ServerMemberResolvable');
     }
-    await this.client.api.patch(`/servers/${this.server.id}/members/${id}`, {
-      body: options,
-    });
+
+    const data = await this.client.api.patch(
+      `/servers/${this.server.id}/members/${id}`,
+      {
+        body: options,
+      },
+    );
+
+    return this.add(data);
   }
 }

@@ -71,7 +71,7 @@ export const DEFAULT_PERMISSION_DM = new Permissions([
   'EMBED_LINKS',
   'UPLOAD_FILES',
   'READ_MESSAGE_HISTORY',
-]).bitfield;
+]).freeze();
 
 export const DEFAULT_PERMISSION_EVERYONE = new Permissions([
   'VIEW_CHANNEL',
@@ -79,4 +79,4 @@ export const DEFAULT_PERMISSION_EVERYONE = new Permissions([
   'EMBED_LINKS',
   'UPLOAD_FILES',
   'READ_MESSAGE_HISTORY',
-]).bitfield;
+]).freeze();

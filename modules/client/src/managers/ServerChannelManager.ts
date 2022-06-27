@@ -1,11 +1,5 @@
 import { BaseManager } from './BaseManager.ts';
-import {
-  Category,
-  Server,
-  ServerChannel,
-  TextChannel,
-  VoiceChannel,
-} from '../structures/mod.ts';
+import { Server, ServerChannel } from '../structures/mod.ts';
 import { APIChannel, Collection } from '../deps.ts';
 import { TypeError } from '../errors/mod.ts';
 
@@ -23,23 +17,14 @@ export class ServerChannelManager
   }
 
   add(data: APIChannel): ServerChannel {
-    let channel: ServerChannel;
+    const channel = this.client.channels.add(data);
 
-    switch (data.type) {
-      case 'Text':
-        channel = new TextChannel(this.client, data);
-        break;
-      case 'Voice':
-        channel = new VoiceChannel(this.client, data);
-        break;
-      case 'Category':
-        channel = new Category(this.client, data);
-        break;
-      default:
-        throw new Error(`Unknown chanel type: ${data.type}`);
+    if (!channel.inServer()) {
+      throw new Error('The targeted channel isn\'t for a server');
     }
 
     this.cache.set(channel.id, channel);
+
     return channel;
   }
 

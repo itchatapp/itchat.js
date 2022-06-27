@@ -5,7 +5,7 @@ import { Client } from '@itchatapp/client'
 
 const client = new Client()
 
-client.on('message', (msg) => {
+client.on('messageCreate', (msg) => {
     if (msg.content === '!ping') {
         msg.reply('Pong!')
     }
