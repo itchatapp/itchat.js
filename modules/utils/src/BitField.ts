@@ -90,6 +90,10 @@ export class BitField {
     return flags.filter((bit) => this.has(bit));
   }
 
+  toJSON(): string {
+    return this.bitfield.toString();
+  }
+
   equals(bit: BitFieldResolvable): boolean {
     return this.bitfield === this.constructor.resolve(bit);
   }

@@ -4,9 +4,17 @@ import {
   ShimOptions,
 } from 'https://deno.land/x/dnt@0.23.0/mod.ts';
 
+interface PackageMappedSpecifier {
+  name: string;
+  version?: string;
+  subPath?: string;
+}
+
+const silent = () => void 0;
 const [name, version] = Deno.args,
   shims: ShimOptions = {},
-  devDependencies: Record<string, string> = {};
+  devDependencies: Record<string, string> = {},
+  mappings: Record<string, PackageMappedSpecifier> = {};
 
 if (!name || !['rest', 'utils', 'client'].includes(name)) {
   console.log('Invalid module name');
@@ -20,19 +28,71 @@ if (!version) {
 
 await emptyDir(`./modules/${name}/npm`);
 
-devDependencies['@types/node'] = '16.x';
+if (name !== 'utils') devDependencies['@types/node'] = '16.x';
+if (name === 'client') {
+  mappings['https://deno.land/std@0.132.0/node/events.ts'] = {
+    name: 'eventemitter3',
+    version: '^4.0.7',
+  };
+
+  mappings['https://deno.land/x/itchatjs_rest@1.0.0/mod.ts'] = {
+    name: '@itchatapp/rest',
+    version: '^1.0.0',
+  };
+
+  mappings['https://deno.land/x/itchatjs_utils@1.0.0/mod.ts'] = {
+    name: '@itchatapp/utils',
+    version: '^1.0.0',
+  };
+
+  devDependencies['@types/ws'] = '^8.5.3';
+
+  shims.custom = [{
+    package: {
+      name: '@insertish/isomorphic-ws',
+      version: '~4.0.1',
+    },
+    globalNames: [
+      {
+        name: 'WebSocket',
+        exportName: 'default',
+      },
+    ],
+  }];
+}
+
+if (name === 'rest') {
+  shims.custom = [{
+    package: {
+      name: 'cross-fetch',
+      version: '^3.1.5',
+    },
+    globalNames: [{
+      name: 'fetch',
+      exportName: 'default',
+    }, {
+      name: 'Request',
+      typeOnly: true,
+    }, {
+      name: 'Response',
+    }],
+  }];
+}
 
 await build({
   packageManager: 'pnpm',
-  scriptModule: false,
+  scriptModule: 'cjs',
   test: false,
   entryPoints: [`./modules/${name}/mod.ts`],
   outDir: `./modules/${name}/npm`,
   shims,
+  mappings,
   package: {
     name: `@itchatapp/${name}`,
-    version: Deno.args[0].replace(/[A-Z]+/gi, ''),
-    description: `${name} module for itchat.js`,
+    version: version.replace(/[A-Z]+/gi, ''),
+    description: name === 'client'
+      ? 'A JS/TS library to interacting with ItChat API'
+      : `${name} module for itchat.js`,
     devDependencies,
     license: 'MIT',
     repository: {
@@ -52,5 +112,9 @@ await build({
   },
 });
 
-Deno.copyFileSync('LICENSE', `modules/${name}/npm/LICENSE`);
-Deno.copyFileSync('README.md', `modules/${name}/npm/README.md`);
+await Deno.copyFile(`modules/${name}/LICENSE`, `modules/${name}/npm/LICENSE`)
+  .catch(silent);
+await Deno.copyFile(
+  `modules/${name}/README.md`,
+  `modules/${name}/npm/README.md`,
+).catch(silent);

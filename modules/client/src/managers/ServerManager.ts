@@ -12,6 +12,18 @@ export interface CreateServerOptions {
 export class ServerManager extends BaseManager<Server, APIServer> {
   holds = Server;
 
+  remove(id: string): void {
+    const server = this.cache.get(id);
+
+    if (server) {
+      for (const id of server.channels.cache.keys()) {
+        this.client.channels.remove(id);
+      }
+    }
+
+    return super.remove(id);
+  }
+
   fetch(server: ServerResolvable): Promise<Server>;
   fetch(): Promise<Collection<string, Server>>;
   async fetch(
@@ -45,7 +57,7 @@ export class ServerManager extends BaseManager<Server, APIServer> {
   }
 
   async create(options: CreateServerOptions): Promise<Server> {
-    const data = await this.client.api.post(`/servers`, { body: options });
+    const data = await this.client.api.post('/servers', { body: options });
     return this.add(data);
   }
 }

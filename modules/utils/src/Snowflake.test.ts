@@ -2,7 +2,7 @@ import { Snowflake } from './Snowflake.ts';
 import { assertEquals } from 'https://deno.land/std@0.138.0/testing/asserts.ts';
 
 Deno.test('Snowflake#generate', () => {
-  assertEquals(typeof Snowflake.generate(), 'bigint');
+  assertEquals(typeof Snowflake.generate(), 'string');
 });
 
 Deno.test('Snowflake#generate with specific date', () => {
