@@ -61,9 +61,9 @@ if (name === 'client') {
   }, {
     package: {
       name: 'ws',
-      version: '^8.8.0'
+      version: '^8.8.0',
     },
-    globalNames: []
+    globalNames: [],
   }];
 }
 
