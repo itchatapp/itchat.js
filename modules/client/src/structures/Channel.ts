@@ -30,6 +30,12 @@ export abstract class Channel extends Base {
     return 'serverId' in this;
   }
 
+  delete(): Promise<void> {
+    return this.inServer()
+      ? this.server.channels.delete(this)
+      : this.client.channels.delete(this);
+  }
+
   toString(): string {
     return `<#${this.id}>`;
   }

@@ -1,6 +1,7 @@
 import { Base, Client } from './Base.ts';
 import { APIMember } from '../deps.ts';
 import type { Server, User } from './mod.ts';
+import type { EditServerMemberOptions } from '../managers/mod.ts';
 
 export class Member extends Base {
   nickname: string | null = null;
@@ -15,8 +16,8 @@ export class Member extends Base {
   protected _patch(data: APIMember): this {
     super._patch(data);
     if ('nickname' in data) this.nickname = data.nickname ?? null;
-    if (data.server_id) this.serverId = data.server_id + '';
-    if (data.joined_at) this.joinedTimestamp = data.joined_at;
+    if (data.server_id) this.serverId = data.server_id;
+    if (data.joined_at) this.joinedTimestamp = Date.parse(data.joined_at);
     return this;
   }
 
@@ -30,6 +31,14 @@ export class Member extends Base {
 
   get joinedAt(): Date {
     return new Date(this.joinedTimestamp);
+  }
+
+  edit(options: EditServerMemberOptions): Promise<Member> {
+    return this.server.members.edit(this, options);
+  }
+
+  kick(): Promise<void> {
+    return this.server.members.kick(this);
   }
 
   toString(): string {

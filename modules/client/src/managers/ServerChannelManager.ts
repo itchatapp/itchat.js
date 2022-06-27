@@ -23,6 +23,8 @@ export class ServerChannelManager
       throw new Error('The targeted channel isn\'t for a server');
     }
 
+    this.cache.set(channel.id, channel);
+
     return channel;
   }
 

@@ -18,7 +18,11 @@ export class DMChannel extends Channel implements TextBasedChannel {
 
   protected _patch(data: APIDMChannel): this {
     super._patch(data);
-    if (data.recipients?.length) this.recipientId = data.recipients[0] + '';
+    if (data.recipients?.length) {
+      this.recipientId = data.recipients.find((id) =>
+        id !== this.client.user!.id
+      )!;
+    }
     return this;
   }
 

@@ -28,12 +28,16 @@ export class Server extends Base {
     super._patch(data);
     if (data.name) this.name = data.name;
     if ('description' in data) this.description = data.description ?? null;
-    if (data.owner_id) this.ownerId = data.owner_id + '';
+    if (data.owner_id) this.ownerId = data.owner_id;
     if ('banner' in data) this.banner = data.banner ?? null;
     if ('icon' in data) this.icon = data.icon ?? null;
     if ('permissions' in data) {
       this.defaultPermissions.set(BigInt(data.permissions));
     }
     return this;
+  }
+
+  delete(): Promise<void> {
+    return this.client.servers.delete(this);
   }
 }

@@ -3,7 +3,7 @@ import { APIMember } from '../deps.ts';
 
 export class ServerMemberJoinAction extends Action {
   handle(data: APIMember) {
-    const server = this.client.servers.cache.get(data.server_id + '');
+    const server = this.client.servers.cache.get(data.server_id);
 
     if (server) {
       const member = server.members.add(data);

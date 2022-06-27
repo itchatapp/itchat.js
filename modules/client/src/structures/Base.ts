@@ -7,7 +7,7 @@ export abstract class Base {
   constructor(public readonly client: Client) {}
 
   protected _patch(data: unknown): this {
-    this.id = (data as { id: string }).id + '';
+    this.id = (data as { id: string }).id;
     return this;
   }
 

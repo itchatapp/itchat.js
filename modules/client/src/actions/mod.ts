@@ -1,5 +1,6 @@
 export * from './ChannelCreate.ts';
 export * from './ChannelDelete.ts';
+export * from './ChannelUpdate.ts';
 export * from './MessageCreate.ts';
 export * from './MessageDelete.ts';
 export * from './MessageUpdate.ts';

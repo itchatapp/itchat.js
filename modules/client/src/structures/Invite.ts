@@ -16,10 +16,10 @@ export class Invite extends Base {
 
   protected _patch(data: APIInvite): this {
     super._patch(data);
-    if (data.channel_id) this.channelId = data.channel_id + '';
+    if (data.channel_id) this.channelId = data.channel_id;
     if (data.code) this.code = data.code;
-    if (data.inviter_id) this.inviterId = data.inviter_id + '';
-    if (data.server_id) this.serverId = data.server_id + '';
+    if (data.inviter_id) this.inviterId = data.inviter_id;
+    if (data.server_id) this.serverId = data.server_id;
     if (data.uses) this.uses = data.uses;
     return this;
   }

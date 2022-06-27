@@ -3,7 +3,7 @@ import type { APIMessage } from '../deps.ts';
 
 export class MessageAction extends Action {
   handle(data: APIMessage) {
-    const channel = this.client.channels.cache.get(data.channel_id + '');
+    const channel = this.client.channels.cache.get(data.channel_id);
 
     if (channel?.isText()) {
       const message = channel.messages.add(data);

@@ -17,9 +17,9 @@ export class Message extends Base {
   protected _patch(data: APIMessage): this {
     super._patch(data);
     if (data.content) this.content = data.content;
-    if (data.author_id) this.authorId = data.author_id + '';
-    if (data.channel_id) this.channelId = data.channel_id + '';
-    if (data.edited_at) this.editedTimestamp = data.edited_at;
+    if (data.author_id) this.authorId = data.author_id;
+    if (data.channel_id) this.channelId = data.channel_id;
+    if (data.edited_at) this.editedTimestamp = Date.parse(data.edited_at);
     return this;
   }
 

@@ -1,10 +1,12 @@
 export * from './Base.ts';
+export * from './Bot.ts';
 export * from './Category.ts';
 export * from './Channel.ts';
 export * from './ClientUser.ts';
 export * from './ClientUser.ts';
 export * from './DMChannel.ts';
 export * from './GroupChannel.ts';
+export * from './Invite.ts';
 export * from './Member.ts';
 export * from './Message.ts';
 export * from './Role.ts';
@@ -13,4 +15,3 @@ export * from './ServerChannel.ts';
 export * from './TextChannel.ts';
 export * from './User.ts';
 export * from './VoiceChannel.ts';
-export * from './Invite.ts';

@@ -8,7 +8,7 @@ import type {
   PatchRoutes,
   PostRoutes,
   PutRoutes,
-} from 'https://deno.land/x/itchatjs_types@v1.2.4/mod.ts';
+} from 'https://deno.land/x/itchatjs_types@v1.2.5/mod.ts';
 
 export interface RESTOptions {
   app: string;
@@ -116,7 +116,9 @@ export class REST {
     } catch (err) {
       console.error(err);
       if (request.retries === this.options.retries) {
-        if (err instanceof Response) throw new HTTPError(err, request);
+        if (err instanceof Response) {
+          throw new HTTPError(err, request);
+        }
         throw err;
       }
 

@@ -3,9 +3,9 @@ import { APIUser } from '../deps.ts';
 
 export class UserUpdateAction extends Action {
   handle(data: APIUser) {
-    const user = data.id + '' === this.client.user!.id
+    const user = data.id === this.client.user!.id
       ? this.client.user
-      : this.client.users.cache.get(data.id + '');
+      : this.client.users.cache.get(data.id);
 
     const oldUser = user?._update(data);
 

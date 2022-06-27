@@ -121,7 +121,7 @@ export class WebSocketShard {
         this.connected = true;
         break;
       case WSEvents.PONG:
-        this.debug(`Received a heartbeat.`);
+        this.debug('Received a heartbeat.');
         this.lastPongAcked = true;
         break;
       case WSEvents.ERROR:
@@ -149,7 +149,10 @@ export class WebSocketShard {
 
         this.ready = true;
 
-        this.client.emit(Events.READY, this.client);
+        // Note: Delete the timeout once this issue get closed. https://github.com/itchatapp/api/issues/13
+        setTimeout(() => {
+          this.client.emit(Events.READY, this.client);
+        }, 5000);
         break;
       }
       default: {

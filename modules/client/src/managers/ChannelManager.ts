@@ -84,6 +84,16 @@ export class ChannelManager extends BaseManager<Channel, APIChannel> {
     }, new Collection<string, Channel>());
   }
 
+  async delete(channel: ChannelResolvable): Promise<void> {
+    const id = this.resolveId(channel);
+
+    if (!id) {
+      throw new TypeError('INVALID_TYPE', 'channel', 'ChannelResolvable');
+    }
+
+    await this.client.api.delete(`/channels/${id}`);
+  }
+
   async create(name: string) {
     const data = await this.client.api.post('/channels', {
       body: {
