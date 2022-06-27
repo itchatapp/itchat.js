@@ -114,6 +114,7 @@ await build({
     },
     files: [
       'esm/*',
+      'script/*',
       'types/*',
     ],
   },
