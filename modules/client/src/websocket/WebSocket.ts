@@ -169,19 +169,24 @@ export class WebSocketShard {
   }
 
   connect(): Promise<this> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       if (this.socket?.readyState === WebSocket.OPEN && this.ready) {
         return resolve(this);
       }
 
-      const ws = (this.socket = this.socket ??
-        new WebSocket(this.client.options.ws.url));
+      const ws = this.socket = new WebSocket(this.client.options.ws.url);
 
       ws.onopen = this.onOpen.bind(this);
       ws.onmessage = this.onMessage.bind(this);
       ws.onerror = this.onError.bind(this);
       ws.onclose = this.onClose.bind(this);
-      ws.addEventListener('open', () => resolve(this));
+
+      ws.addEventListener('close', () => reject());
+
+      const interval = setInterval(() => {
+        if (this.connected) resolve(this);
+        if (!this.socket) clearInterval(interval);
+      }, 100);
     });
   }
 
