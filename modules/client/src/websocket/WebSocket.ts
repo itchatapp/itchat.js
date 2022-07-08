@@ -148,10 +148,7 @@ export class WebSocketShard {
 
         this.ready = true;
 
-        // Note: Delete the timeout once this issue get closed. https://github.com/itchatapp/api/issues/13
-        setTimeout(() => {
-          this.client.emit(Events.READY, this.client);
-        }, 5000);
+        this.client.emit(Events.READY, this.client);
         break;
       }
       default: {
