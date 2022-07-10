@@ -5,4 +5,4 @@ export type {
   PatchRoutes,
   PostRoutes,
   PutRoutes,
-} from 'https://deno.land/x/itchatjs_types@v1.2.5/mod.ts';
+} from 'https://deno.land/x/itchatjs_types@v1.2.6/mod.ts';
