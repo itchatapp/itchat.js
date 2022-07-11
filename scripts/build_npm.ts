@@ -35,9 +35,9 @@ if (name === 'client') {
     version: '^4.0.7',
   };
 
-  mappings['https://deno.land/x/itchatjs_rest@1.0.3/mod.ts'] = {
+  mappings['https://deno.land/x/itchatjs_rest@1.0.4/mod.ts'] = {
     name: '@itchatapp/rest',
-    version: '^1.0.3',
+    version: '^1.0.4',
   };
 
   mappings['https://deno.land/x/itchatjs_utils@1.0.3/mod.ts'] = {

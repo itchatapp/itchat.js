@@ -47,8 +47,8 @@ export class WebSocketShard {
     this.debug('Socket opened');
     if (!this.client.token) throw new Error('INVALID_TOKEN');
     this.send({
-      event: WSEvents.AUTHENTICATE,
-      token: this.client.token,
+      op: WSEvents.AUTHENTICATE,
+      d: { token: this.client.token },
     });
   }
 
@@ -80,7 +80,7 @@ export class WebSocketShard {
     }
 
     const now = Date.now();
-    this.send({ type: WSEvents.PING, data: now });
+    this.send({ op: WSEvents.PING, d: now });
     this.lastPongAcked = false;
     this.lastPingTimestamp = now;
   }
@@ -115,7 +115,7 @@ export class WebSocketShard {
       return;
     }
 
-    switch (packet.event) {
+    switch (packet.op) {
       case WSEvents.AUTHENTICATED:
         this.connected = true;
         break;
@@ -124,22 +124,24 @@ export class WebSocketShard {
         this.lastPongAcked = true;
         break;
       case WSEvents.ERROR:
-        this.client.emit(Events.ERROR, packet.error);
+        this.client.emit(Events.ERROR, packet);
         break;
       case WSEvents.READY: {
+        const data = packet.d;
+
         this.lastPongAcked = true;
 
-        this.client.user = new ClientUser(this.client, packet.user);
+        this.client.user = new ClientUser(this.client, data.user);
 
-        for (const user of packet.users) {
+        for (const user of data.users) {
           this.client.users.add(user);
         }
 
-        for (const server of packet.servers) {
+        for (const server of data.servers) {
           this.client.servers.add(server);
         }
 
-        for (const channel of packet.channels) {
+        for (const channel of data.channels) {
           this.client.channels.add(channel);
         }
 
@@ -152,12 +154,12 @@ export class WebSocketShard {
         break;
       }
       default: {
-        const action = this.client.actions.get(packet.event);
+        const action = this.client.actions.get(packet.op);
 
         if (action) {
-          await action.handle(packet);
+          await action.handle(packet.d);
         } else {
-          this.debug(`Received unknown packet "${packet.event}"`);
+          this.debug(`Received unknown packet "${packet.op}"`);
         }
 
         break;
