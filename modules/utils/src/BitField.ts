@@ -111,8 +111,8 @@ export class BitField {
         DEFAULT_BIT,
       );
     }
-    if (bit instanceof BitField) return bit.bitfield;
-    if (typeof this.FLAGS[bit] === 'bigint') return this.FLAGS[bit];
+    if (bit instanceof this) return bit.bitfield;
+    if (typeof this.FLAGS[bit] !== 'undefined') return this.FLAGS[bit];
     throw new Error('Invalid Bit');
   }
 }

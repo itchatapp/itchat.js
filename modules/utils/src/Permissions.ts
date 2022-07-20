@@ -21,47 +21,25 @@ export declare interface Permissions {
 
 export class Permissions extends BitField {
   static FLAGS = {
-    // Admin
-    ADMINISTRATOR: 1n << 0n,
-
-    // Channel
-    VIEW_CHANNEL: 1n << 1n,
-    SEND_MESSAGES: 1n << 2n,
-    READ_MESSAGE_HISTORY: 1n << 3n,
-    EMBED_LINKS: 1n << 4n,
-    UPLOAD_FILES: 1n << 5n,
-
-    // Manage
-    MANAGE_SERVER: 1n << 6n,
-    MANAGE_CHANNELS: 1n << 7n,
-    MANAGE_MESSAGES: 1n << 8n,
-    MANAGE_ROLES: 1n << 9n,
+    VIEW_CHANNEL: 1n << 0n,
+    SEND_MESSAGES: 1n << 1n,
+    READ_MESSAGE_HISTORY: 1n << 2n,
+    EMBED_LINKS: 1n << 3n,
+    UPLOAD_FILES: 1n << 4n,
+    MANAGE_SERVER: 1n << 5n,
+    MANAGE_CHANNELS: 1n << 6n,
+    MANAGE_MESSAGES: 1n << 7n,
+    MANAGE_ROLES: 1n << 8n,
+    MANAGE_INVITES: 1n << 9n,
     MANAGE_NICKNAMES: 1n << 10n,
     BAN_MEMBERS: 1n << 11n,
     KICK_MEMBERS: 1n << 12n,
-
-    // Member
     CHANGE_NICKNAME: 1n << 13n,
     INVITE_OTHERS: 1n << 14n,
   } as const;
 
   constructor(...bits: PermissionsResolvable[]) {
     super(bits);
-  }
-
-  missing(bits: PermissionsResolvable, checkAdmin = true): PermissionString[] {
-    if (checkAdmin && super.has(Permissions.FLAGS.ADMINISTRATOR)) return [];
-    return super.missing(bits) as PermissionString[];
-  }
-
-  any(bit: PermissionsResolvable, checkAdmin = true): boolean {
-    if (checkAdmin && super.has(Permissions.FLAGS.ADMINISTRATOR)) return true;
-    return super.any(bit);
-  }
-
-  has(bit: PermissionsResolvable, checkAdmin = true): boolean {
-    if (checkAdmin && super.has(Permissions.FLAGS.ADMINISTRATOR)) return true;
-    return super.has(bit);
   }
 }
 
